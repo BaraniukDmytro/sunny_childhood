@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "369191586213",
+    "firebase_url": "https://sunny-childhood-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "sunny-childhood",
+    "storage_bucket": "sunny-childhood.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369191586213:android:4b86d5d4ecb25589a0804c",
+        "android_client_info": {
+          "package_name": "com.example.sunny_childhood"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAD3fMjXFvXAI8aEdRCyKV5fYxmh2FR94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

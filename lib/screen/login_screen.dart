@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sunny_childhood/const/colors.dart';
-import 'package:sunny_childhood/data/auth_data.dart';
+import 'package:sunny_childhood/repository/auth_data.dart';
 
 class LogIN_Screen extends StatefulWidget {
   final VoidCallback show;

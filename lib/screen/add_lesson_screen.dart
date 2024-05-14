@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sunny_childhood/const/colors.dart';
-import 'package:sunny_childhood/data/firestore.dart';
+import 'package:sunny_childhood/repository/firestore.dart';
 
 class AddLessonScreen extends StatefulWidget {
   const AddLessonScreen({super.key});

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sunny_childhood/widgets/task_widgets.dart';
-import '../data/firestore.dart';
+import '../repository/firestore.dart';
 
 class Stream_note extends StatelessWidget {
   bool done;

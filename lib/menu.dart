@@ -18,9 +18,15 @@ class AppMenu extends StatelessWidget {
         children: [
         // drawer header
         DrawerHeader(
-            child: Icon(
-                Icons.grass,
-            ),
+            child:Row(
+              children: [
+                Image.asset(
+                  'images/forest1.png',
+                  height: 270,
+                  width: 270,
+                ),
+              ],
+            )
         ),
 
         const SizedBox(height: 25),

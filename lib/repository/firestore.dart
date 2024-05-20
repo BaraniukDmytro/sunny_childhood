@@ -8,20 +8,24 @@ class Firestore_Datasource {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<bool> CreateUser(String email) async {
+  Future<bool> createUser(String email, String avatarUrl) async {
     try {
       await _firestore
           .collection('users')
           .doc(_auth.currentUser!.uid)
-          .set({"id": _auth.currentUser!.uid, "email": email});
+          .set({
+        "id": _auth.currentUser!.uid,
+        "email": email,
+        "avatarUrl": avatarUrl, // Додаємо URL аватара
+      });
       return true;
     } catch (e) {
       print(e);
-      return true;
+      return false; // Змінив на false, щоб логічно відповідало на помилку
     }
   }
 
-  // Метод для отримання email авторизованого користувача
+    // Метод для отримання email авторизованого користувача
   Future<String?> getUserEmail() async {
     try {
       User? user = _auth.currentUser;
@@ -35,6 +39,22 @@ class Firestore_Datasource {
       return null;
     }
   }
+
+  Future<Map<String, dynamic>?> getUserData(String userId) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> snapshot = await _firestore.collection('users').doc(userId).get();
+      if (snapshot.exists) {
+        Map<String, dynamic> userData = snapshot.data()!;
+        return userData;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+      return null;
+    }
+  }
+
 
 
   Future<bool> AddNote(String subtitle, String title, int image) async {

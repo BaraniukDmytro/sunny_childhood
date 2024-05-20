@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sunny_childhood/const/colors.dart';
 import 'package:sunny_childhood/repository/auth_data.dart';
 
-
 class SignUp_Screen extends StatefulWidget {
   final VoidCallback show;
   SignUp_Screen(this.show, {super.key});
@@ -12,17 +11,28 @@ class SignUp_Screen extends StatefulWidget {
 }
 
 class _SignUp_ScreenState extends State<SignUp_Screen> {
-  FocusNode _focusNode1 = FocusNode();
-  FocusNode _focusNode2 = FocusNode();
-  FocusNode _focusNode3 = FocusNode();
+  final FocusNode _focusNode1 = FocusNode();
+  final FocusNode _focusNode2 = FocusNode();
+  final FocusNode _focusNode3 = FocusNode();
+  final FocusNode _focusNode4 = FocusNode();
+  final FocusNode _focusNode5 = FocusNode();
+  final FocusNode _focusNode6 = FocusNode();
 
-  final email = TextEditingController();
-  final password = TextEditingController();
-  final PasswordConfirm = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
+  final TextEditingController PasswordConfirm = TextEditingController();
+  final TextEditingController name = TextEditingController();
+  final TextEditingController age = TextEditingController();
+  final TextEditingController additionalInfo = TextEditingController();
+
+  int? _selectedAvatarIndex;
+  List<String> avatarImages = [
+    'images/avatar1.png',
+    'images/avatar2.png',
+  ];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _focusNode1.addListener(() {
       setState(() {});
@@ -33,6 +43,32 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     _focusNode3.addListener(() {
       setState(() {});
     });
+    _focusNode4.addListener(() {
+      setState(() {});
+    });
+    _focusNode5.addListener(() {
+      setState(() {});
+    });
+    _focusNode6.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _focusNode1.dispose();
+    _focusNode2.dispose();
+    _focusNode3.dispose();
+    _focusNode4.dispose();
+    _focusNode5.dispose();
+    _focusNode6.dispose();
+    email.dispose();
+    password.dispose();
+    PasswordConfirm.dispose();
+    name.dispose();
+    age.dispose();
+    additionalInfo.dispose();
+    super.dispose();
   }
 
   @override
@@ -50,12 +86,19 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
               SizedBox(height: 10),
               textfield(password, _focusNode2, 'Password', Icons.password),
               SizedBox(height: 10),
-              textfield(PasswordConfirm, _focusNode3, 'PasswordConfirm',
-                  Icons.password),
-              SizedBox(height: 8),
+              textfield(PasswordConfirm, _focusNode3, 'Password Confirm', Icons.password),
+              SizedBox(height: 10),
+              textfield(name, _focusNode4, 'Name', Icons.person),
+              SizedBox(height: 10),
+              textfield(age, _focusNode5, 'Age', Icons.calendar_today),
+              SizedBox(height: 10),
+              textfield(additionalInfo, _focusNode6, 'Additional Info', Icons.info),
+              SizedBox(height: 20),
+              avatarSelection(),
+              SizedBox(height: 10),
               account(),
               SizedBox(height: 20),
-              SignUP_bottom(),
+              signUpButton(),
             ],
           ),
         ),
@@ -70,7 +113,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            "Don you have an account?",
+            "Don't have an account?",
             style: TextStyle(color: Colors.grey[700], fontSize: 14),
           ),
           SizedBox(width: 5),
@@ -89,13 +132,33 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     );
   }
 
-  Widget SignUP_bottom() {
+  Widget signUpButton() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: GestureDetector(
         onTap: () {
-          AuthenticationRemote()
-              .register(email.text, password.text, PasswordConfirm.text);
+          if (password.text == PasswordConfirm.text) {
+            if (_selectedAvatarIndex != null) {
+              String selectedAvatar = avatarImages[_selectedAvatarIndex!];
+              AuthenticationRemote().register(
+                email.text,
+                password.text,
+                PasswordConfirm.text,
+                name.text,
+                age.text,
+                additionalInfo.text,
+                selectedAvatar,  // Передаємо вибраний аватар
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Please select an avatar')),
+              );
+            }
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Passwords do not match')),
+            );
+          }
         },
         child: Container(
           alignment: Alignment.center,
@@ -118,8 +181,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     );
   }
 
-  Widget textfield(TextEditingController _controller, FocusNode _focusNode,
-      String typeName, IconData iconss) {
+  Widget textfield(TextEditingController controller, FocusNode focusNode, String typeName, IconData icon) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Container(
@@ -128,31 +190,31 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
           borderRadius: BorderRadius.circular(15),
         ),
         child: TextField(
-          controller: _controller,
-          focusNode: _focusNode,
+          controller: controller,
+          focusNode: focusNode,
           style: TextStyle(fontSize: 18, color: Colors.black),
           decoration: InputDecoration(
-              prefixIcon: Icon(
-                iconss,
-                color: _focusNode.hasFocus ? custom_green : Color(0xffc5c5c5),
+            prefixIcon: Icon(
+              icon,
+              color: focusNode.hasFocus ? custom_green : Color(0xffc5c5c5),
+            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            hintText: typeName,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: Color(0xffc5c5c5),
+                width: 2.0,
               ),
-              contentPadding:
-              EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              hintText: typeName,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
-                  color: Color(0xffc5c5c5),
-                  width: 2.0,
-                ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: custom_green,
+                width: 2.0,
               ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
-                  color: custom_green,
-                  width: 2.0,
-                ),
-              )),
+            ),
+          ),
         ),
       ),
     );
@@ -174,4 +236,49 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
       ),
     );
   }
+
+  Widget avatarSelection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Text(
+            'Select Avatar',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+        SizedBox(height: 30,),
+        GridView.builder(
+          shrinkWrap: true,
+          padding: EdgeInsets.symmetric(horizontal: 15),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 1,
+          ),
+          itemCount: avatarImages.length,
+          itemBuilder: (context, index) {
+            return RadioListTile<int>(
+              value: index,
+              groupValue: _selectedAvatarIndex,
+              onChanged: (value) {
+                setState(() {
+                  _selectedAvatarIndex = value;
+                });
+              },
+              title: Image.asset(
+                avatarImages[index],
+                width: 100,
+                height: 100,
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
 }
+
+

@@ -31,6 +31,4 @@ class MainPage extends StatelessWidget {
       ),
     );
   }
-
-
 }

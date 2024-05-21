@@ -55,8 +55,6 @@ class Firestore_Datasource {
     }
   }
 
-
-
   Future<bool> AddNote(String subtitle, String title, int image) async {
     try {
       var uuid = Uuid().v4();
@@ -159,6 +157,20 @@ class Firestore_Datasource {
     } catch (e) {
       print(e);
       return true;
+    }
+  }
+
+  Future<String?> getInstructionText() async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> snapshot = await _firestore.collection('app_info').doc('instructions').get();
+      if (snapshot.exists) {
+        return snapshot.data()?['text'];
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('Error fetching instruction text: $e');
+      return null;
     }
   }
 }

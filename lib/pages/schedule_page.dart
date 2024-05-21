@@ -31,6 +31,4 @@ class SchedulePage extends StatelessWidget {
       ),
     );
   }
-
-
 }

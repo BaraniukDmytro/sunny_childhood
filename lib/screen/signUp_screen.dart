@@ -81,7 +81,9 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
             children: [
               SizedBox(height: 20),
               image(),
-              SizedBox(height: 50),
+              SizedBox(height: 10),
+              account(),
+              SizedBox(height: 10),
               textfield(email, _focusNode1, 'Email', Icons.email),
               SizedBox(height: 10),
               textfield(password, _focusNode2, 'Password', Icons.password),
@@ -95,9 +97,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
               textfield(additionalInfo, _focusNode6, 'Additional Info', Icons.info),
               SizedBox(height: 20),
               avatarSelection(),
-              SizedBox(height: 10),
-              account(),
-              SizedBox(height: 20),
+              //SizedBox(height: 0),
               signUpButton(),
             ],
           ),
@@ -113,7 +113,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            "Don't have an account?",
+            "Already have an account?",
             style: TextStyle(color: Colors.grey[700], fontSize: 14),
           ),
           SizedBox(width: 5),
@@ -248,7 +248,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),
-        SizedBox(height: 30,),
+        SizedBox(height: 10,),
         GridView.builder(
           shrinkWrap: true,
           padding: EdgeInsets.symmetric(horizontal: 15),
@@ -280,5 +280,3 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     );
   }
 }
-
-

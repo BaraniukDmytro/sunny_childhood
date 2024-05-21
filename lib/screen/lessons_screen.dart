@@ -8,12 +8,12 @@ class Lesson_Screen extends StatefulWidget {
   const Lesson_Screen({super.key});
 
   @override
-  State<Lesson_Screen> createState() => _Home_ScreenState();
+  State<Lesson_Screen> createState() => _Lesson_ScreenState();
 }
 
 bool show = true;
 
-class _Home_ScreenState extends State<Lesson_Screen> {
+class _Lesson_ScreenState extends State<Lesson_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

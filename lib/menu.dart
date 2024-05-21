@@ -21,7 +21,7 @@ class AppMenu extends StatelessWidget {
             child:Row(
               children: [
                 Image.asset(
-                  'images/forest1.png',
+                  'images/menuImage.png',
                   height: 270,
                   width: 270,
                 ),

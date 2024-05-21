@@ -49,7 +49,7 @@ class _Lesson_ScreenState extends State<Lesson_Screen> {
             children: [
               Stream_note(false),
               Text(
-                'isDone',
+                'Completed',
                 style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey.shade500,

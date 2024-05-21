@@ -110,16 +110,48 @@ class Firestore_Datasource {
 
   Future<bool> isdone(String uuid, bool isDon) async {
     try {
-      await _firestore
-          .collection('users')
-          .doc(_auth.currentUser!.uid)
-          .collection('lessons')
-          .doc(uuid)
-          .update({'isDon': isDon});
+      User? user = _auth.currentUser;
+      if (user == null) return false;
+
+      DocumentReference userDoc = _firestore.collection('users').doc(user.uid);
+      DocumentReference lessonDoc = userDoc.collection('lessons').doc(uuid);
+
+      // Починаємо транзакцію
+      await _firestore.runTransaction((transaction) async {
+        DocumentSnapshot lessonSnapshot = await transaction.get(lessonDoc);
+        if (!lessonSnapshot.exists) return;
+
+        bool currentStatus = lessonSnapshot.get('isDon');
+        int delta = isDon ? 1 : 0;
+
+        transaction.update(lessonDoc, {'isDon': isDon});
+        transaction.update(userDoc, {
+          'completedTasksCount': FieldValue.increment(delta),
+        });
+      });
+
       return true;
     } catch (e) {
       print(e);
-      return true;
+      return false;
+    }
+  }
+
+  Future<int> getCompletedTasksCount() async {
+    try {
+      User? user = _auth.currentUser;
+      if (user == null) return 0;
+
+      DocumentSnapshot userDoc =
+      await _firestore.collection('users').doc(user.uid).get();
+      if (userDoc.exists) {
+        return userDoc.get('completedTasksCount') ?? 0;
+      } else {
+        return 0;
+      }
+    } catch (e) {
+      print('Error loading completed tasks count: $e');
+      return 0;
     }
   }
 

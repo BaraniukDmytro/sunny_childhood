@@ -49,7 +49,7 @@ class _NewsScreenState extends State<NewsScreen> {
             children: [
               Stream_note(false),
               Text(
-                'isDone',
+                'Completed',
                 style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey.shade500,

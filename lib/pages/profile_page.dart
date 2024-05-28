@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sunny_childhood/repository/firestore.dart';
+import 'package:sunny_childhood/ViewModel/userViewModel.dart';
 
 import '../const/colors.dart';
 
@@ -25,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> _loadUserData() async {
     User? user = _auth.currentUser;
     if (user != null) {
-      userData = await Firestore_Datasource().getUserData(user.uid);
+      userData = await UserViewModel().getUserData(user.uid);
       setState(() {
         isLoading = false;
       });

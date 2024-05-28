@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sunny_childhood/ViewModel/lessonViewModel.dart';
 import 'package:sunny_childhood/const/colors.dart';
 import 'package:sunny_childhood/repository/firestore.dart';
 
@@ -48,7 +48,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
             minimumSize: Size(170, 48),
           ),
           onPressed: () {
-            Firestore_Datasource().AddNote(subtitle.text, title.text, indexx);
+            LessonViewModel().addNote(subtitle.text, title.text, indexx);
             Navigator.pop(context);
           },
           child: Text('add task'),

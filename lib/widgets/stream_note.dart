@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sunny_childhood/ViewModel/lessonViewModel.dart';
+import 'package:sunny_childhood/repository/firestore.dart';
 import 'package:sunny_childhood/widgets/task_widgets.dart';
-import '../repository/firestore.dart';
 
 class Stream_note extends StatelessWidget {
   bool done;
@@ -10,7 +11,7 @@ class Stream_note extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: Firestore_Datasource().stream(done),
+        stream: LessonViewModel().stream(done),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return CircularProgressIndicator();
@@ -23,7 +24,7 @@ class Stream_note extends StatelessWidget {
               return Dismissible(
                   key: UniqueKey(),
                   onDismissed: (direction) {
-                    Firestore_Datasource().delete_note(note.id);
+                    LessonViewModel().deleteNote(note.id);
                   },
                   child: Task_Widget(note));
             },

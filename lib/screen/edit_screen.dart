@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunny_childhood/ViewModel/lessonViewModel.dart';
 import 'package:sunny_childhood/const/colors.dart';
 import 'package:sunny_childhood/repository/firestore.dart';
 import 'package:sunny_childhood/model/lesson_model.dart';
@@ -56,7 +57,7 @@ class _Edit_ScreenState extends State<Edit_Screen> {
             minimumSize: Size(170, 48),
           ),
           onPressed: () {
-            Firestore_Datasource().Update_Note(
+            LessonViewModel().updateNote(
                 widget._lesson.id, indexx, title!.text, subtitle!.text);
             Navigator.pop(context);
           },

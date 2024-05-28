@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunny_childhood/ViewModel/lessonViewModel.dart';
 import 'package:sunny_childhood/const/colors.dart';
 import 'package:sunny_childhood/repository/firestore.dart';
 import 'package:sunny_childhood/model/lesson_model.dart';
@@ -63,8 +64,8 @@ class _Task_WidgetState extends State<Task_Widget> {
                             setState(() {
                               isDone = !isDone;
                             });
-                            Firestore_Datasource()
-                                .isdone(widget._lesson.id, isDone);
+                            LessonViewModel()
+                                .setIsDone(widget._lesson.id, isDone);
                           },
                         )
                       ],

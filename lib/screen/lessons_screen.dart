@@ -45,21 +45,28 @@ class _Lesson_ScreenState extends State<Lesson_Screen> {
             }
             return true;
           },
-          child: Column(
-            children: [
-              Stream_note(false),
-              Text(
-                'Completed',
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey.shade500,
-                    fontWeight: FontWeight.bold),
-              ),
-              Stream_note(true),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Stream_note(false),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Completed',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey.shade500,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Stream_note(true),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
+

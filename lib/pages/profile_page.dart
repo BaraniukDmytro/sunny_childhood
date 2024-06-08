@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sunny_childhood/ViewModel/userViewModel.dart';
-
 import '../const/colors.dart';
+import '../menu.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -40,6 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
         title: Text("Profile"),
         backgroundColor: custom_green,
       ),
+      drawer: AppMenu(),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : ListView(

@@ -5,43 +5,11 @@ class UserViewModel {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<bool> createUser(String email, String avatarUrl) async {
-    try {
-      await _firestore
-          .collection('users')
-          .doc(_auth.currentUser!.uid)
-          .set({
-        "id": _auth.currentUser!.uid,
-        "email": email,
-        "avatarUrl": avatarUrl,
-      });
-      return true;
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
-
-  Future<String?> getUserEmail() async {
-    try {
-      User? user = _auth.currentUser;
-      if (user != null) {
-        return user.email;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print("Error getting email: $e");
-      return null;
-    }
-  }
-
   Future<Map<String, dynamic>?> getUserData(String userId) async {
     try {
       DocumentSnapshot<Map<String, dynamic>> snapshot = await _firestore.collection('users').doc(userId).get();
       if (snapshot.exists) {
-        Map<String, dynamic> userData = snapshot.data()!;
-        return userData;
+        return snapshot.data();
       } else {
         return null;
       }
@@ -50,5 +18,16 @@ class UserViewModel {
       return null;
     }
   }
+
+  Future<bool> updateUserData(String userId, Map<String, dynamic> updatedData) async {
+    try {
+      await _firestore.collection('users').doc(userId).update(updatedData);
+      return true;
+    } catch (e) {
+      print('Error updating user data: $e');
+      return false;
+    }
+  }
 }
+
 

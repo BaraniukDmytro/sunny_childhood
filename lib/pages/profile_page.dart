@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sunny_childhood/ViewModel/userViewModel.dart';
 import '../const/colors.dart';
 import '../menu.dart';
+import '../screen/EditProfilePage.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -32,6 +33,33 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  Future<void> _updateUserData() async {
+    final updatedData = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditProfilePage(userData: userData),
+      ),
+    );
+
+    if (updatedData != null) {
+      setState(() {
+        isLoading = true;
+      });
+
+      User? user = _auth.currentUser;
+      if (user != null) {
+        bool success = await UserViewModel().updateUserData(user.uid, updatedData);
+        if (success) {
+          userData = updatedData;
+        }
+      }
+
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +80,22 @@ class _ProfilePageState extends State<ProfilePage> {
           _buildProfileDetail('Email', _auth.currentUser?.email),
           _buildProfileDetail('Age', userData?['age']),
           _buildProfileDetail('Additional Info', userData?['additionalInfo']),
+          SizedBox(height: 20),
+          Center(
+            child: ElevatedButton(
+              onPressed: _updateUserData,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: custom_green, // Зелений колір кнопки
+              ),
+              child: Text('Update',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -84,3 +128,4 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
+

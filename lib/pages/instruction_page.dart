@@ -32,7 +32,7 @@ class _InstructionPageState extends State<InstructionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Instruction"),
+        title: Text("Інструкція"),
         backgroundColor: custom_green,
         elevation: 0,
       ),

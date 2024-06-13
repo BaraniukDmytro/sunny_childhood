@@ -11,7 +11,7 @@ class ProgressPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Progress"),
+        title: Text("Прогрес"),
         backgroundColor: custom_green,
         elevation: 0,
       ),
@@ -51,7 +51,7 @@ class ProgressPage extends StatelessWidget {
                         ),
                         SizedBox(height: 20),
                         Text(
-                          'Completed tasks: $completedTasksCount',
+                          'Кількість виконаних занять: $completedTasksCount',
                           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                         ),
                       ],

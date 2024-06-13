@@ -52,7 +52,7 @@ class _Lesson_ScreenState extends State<Lesson_Screen> {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    'Completed',
+                    'Виконані',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey.shade500,

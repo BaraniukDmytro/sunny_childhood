@@ -38,7 +38,7 @@ class AppMenu extends StatelessWidget {
             leading: Icon(
                 Icons.home,
             ),
-            title: Text("H O M E"),
+            title: Text("Н О В И Н И"),
             onTap: (){
               Navigator.pop(context);
               Navigator.pushNamed(context, '/home_page');
@@ -53,7 +53,7 @@ class AppMenu extends StatelessWidget {
             leading: Icon(
                 Icons.person,
             ),
-            title: const Text("P R O F I L E"),
+            title: const Text("П Р О Ф І Л Ь"),
             onTap: (){
               Navigator.pop(context);
               Navigator.pushNamed(context, '/profile_page');
@@ -68,7 +68,7 @@ class AppMenu extends StatelessWidget {
               leading: Icon(
                 Icons.calendar_month,
               ),
-              title: const Text("S C H E D U L E"),
+              title: const Text("З А Н Я Т Т Я"),
               onTap: (){
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/schedule_page');
@@ -83,7 +83,7 @@ class AppMenu extends StatelessWidget {
             leading: Icon(
               Icons.group,
             ),
-            title: const Text("V O L U N T E E R S"),
+            title: const Text("В О Л О Н Т Е Р И"),
             onTap: (){
               Navigator.pop(context);
               Navigator.pushNamed(context, '/users_page');
@@ -99,7 +99,7 @@ class AppMenu extends StatelessWidget {
               leading: Icon(
                 Icons.grass_outlined,
               ),
-              title: const Text("P R O G R E S S"),
+              title: const Text("П Р О Г Р Е С"),
               onTap: (){
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/progress_page');
@@ -114,7 +114,7 @@ class AppMenu extends StatelessWidget {
               leading: Icon(
                 Icons.integration_instructions,
               ),
-              title: const Text("I N S T R U C T I O N"),
+              title: const Text("І Н С Т Р У К Ц І Я"),
               onTap: (){
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/instruction_page');
@@ -129,7 +129,7 @@ class AppMenu extends StatelessWidget {
             leading: Icon(
               Icons.logout,
             ),
-            title: Text("L O G O U T"),
+            title: Text("В И Х І Д"),
             onTap: (){
               Navigator.pop(context);
               //logout

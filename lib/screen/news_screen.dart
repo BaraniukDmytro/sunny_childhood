@@ -1,64 +1,69 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:sunny_childhood/const/colors.dart';
-import 'package:sunny_childhood/screen/add_lesson_screen.dart';
-import 'package:sunny_childhood/widgets/stream_note.dart';
+import 'package:sunny_childhood/ViewModel/newsViewModel.dart';
+import 'package:sunny_childhood/model/news_model.dart';
+import 'package:sunny_childhood/screen/add_news_screen.dart';
 
-class NewsScreen extends StatefulWidget {
-  const NewsScreen({super.key});
+import 'edit_news_screen.dart'; // Це екран для додавання новин, який ми створимо нижче
 
-  @override
-  State<NewsScreen> createState() => _NewsScreenState();
-}
 
-bool show = true;
+class NewsScreen extends StatelessWidget {
+  final NewsViewModel _newsViewModel = NewsViewModel();
 
-class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColors,
-      floatingActionButton: Visibility(
-        visible: show,
-        child: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => AddLessonScreen(),
-            ));
-          },
-          backgroundColor: custom_green,
-          child: Icon(Icons.add, size: 30),
-        ),
+      body: StreamBuilder<List<News>>(
+        stream: _newsViewModel.getNewsStream(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('No news available'));
+          } else {
+            final newsList = snapshot.data!;
+            return ListView.builder(
+              itemCount: newsList.length,
+              itemBuilder: (context, index) {
+                final news = newsList[index];
+                return ListTile(
+                  title: Text(news.title),
+                  subtitle: Text(news.text),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.edit),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => EditNewsScreen(news: news),
+                            ),
+                          );
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () async {
+                          await _newsViewModel.deleteNews(news.id);
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          }
+        },
       ),
-      body: SafeArea(
-        child: NotificationListener<UserScrollNotification>(
-          onNotification: (notification) {
-            if (notification.direction == ScrollDirection.forward) {
-              setState(() {
-                show = true;
-              });
-            }
-            if (notification.direction == ScrollDirection.reverse) {
-              setState(() {
-                show = false;
-              });
-            }
-            return true;
-          },
-          child: Column(
-            children: [
-              Stream_note(false),
-              Text(
-                'Completed',
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey.shade500,
-                    fontWeight: FontWeight.bold),
-              ),
-              Stream_note(true),
-            ],
-          ),
-        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => AddNewsPage()),
+          );
+        },
+        child: Icon(Icons.add),
       ),
     );
   }

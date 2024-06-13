@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class AuthenticationDatasource {
   Future<void> register(String email, String password, String passwordConfirm, String name, String age, String additionalInfo, String avatarUrl);
   Future<void> login(String email, String password);
+  Future<User?> signInWithGoogle();  // Додаємо метод для Google
 }
 
 class AuthenticationRemote extends AuthenticationDatasource {
@@ -53,5 +55,44 @@ class AuthenticationRemote extends AuthenticationDatasource {
       rethrow;
     }
   }
+
+  Future<User?> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        return null; // Користувач скасував вхід
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final UserCredential userCredential = await _firebaseAuth.signInWithCredential(credential);
+      final User? user = userCredential.user;
+
+      // Перевіряємо, чи існує користувач у Firestore
+      final userDoc = await _firestore.collection('users').doc(user!.uid).get();
+      if (!userDoc.exists) {
+        // Створюємо новий документ користувача
+        await _firestore.collection('users').doc(user.uid).set({
+          'email': user.email,
+          'name': user.displayName,
+          'avatarUrl': user.photoURL,
+        });
+      }
+
+      return user;
+    } on FirebaseAuthException catch (e) {
+      print('Failed to sign in with Google: $e');
+      return null;
+    } catch (e) {
+      print('An error occurred while signing in with Google: $e');
+      return null;
+    }
+  }
 }
+
+
 

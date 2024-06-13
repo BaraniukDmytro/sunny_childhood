@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sunny_childhood/ViewModel/userViewModel.dart';
 import '../const/colors.dart';
 import '../menu.dart';
-import '../screen/EditProfilePage.dart';
+import '../screen/edit_profile_screen.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -65,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        title: Text("Profile"),
+        title: Text("Профіль"),
         backgroundColor: custom_green,
       ),
       drawer: AppMenu(),
@@ -76,10 +76,10 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(height: 50),
           _buildAvatar(),
           const SizedBox(height: 20),
-          _buildProfileDetail('Name', userData?['name']),
+          _buildProfileDetail('Імя', userData?['name']),
           _buildProfileDetail('Email', _auth.currentUser?.email),
-          _buildProfileDetail('Age', userData?['age']),
-          _buildProfileDetail('Additional Info', userData?['additionalInfo']),
+          _buildProfileDetail('Вік', userData?['age']),
+          _buildProfileDetail('Додаткова інформація', userData?['additionalInfo']),
           SizedBox(height: 20),
           Center(
             child: ElevatedButton(
@@ -87,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: custom_green, // Зелений колір кнопки
               ),
-              child: Text('Update',
+              child: Text('Оновити',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,

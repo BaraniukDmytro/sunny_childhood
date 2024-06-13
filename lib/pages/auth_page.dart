@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunny_childhood/screen/signUp_google_screen.dart';
 import 'package:sunny_childhood/screen/signUp_screen.dart';
 import 'package:sunny_childhood/screen/login_screen.dart';
 
@@ -11,6 +12,7 @@ class Auth_Page extends StatefulWidget {
 
 class _Auth_PageState extends State<Auth_Page> {
   bool a = true;
+
   void to() {
     setState(() {
       a = !a;
@@ -26,3 +28,4 @@ class _Auth_PageState extends State<Auth_Page> {
     }
   }
 }
+

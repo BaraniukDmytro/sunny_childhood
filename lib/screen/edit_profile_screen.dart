@@ -60,7 +60,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Text(
-            'Select Avatar',
+            'Вибрати аватар',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),
@@ -100,7 +100,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Profile'),
+        title: Text('Редагування профілю'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -110,27 +110,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
             children: [
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(labelText: 'Імя'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your name';
+                    return 'Будь ласка введіть імя';
                   }
                   return null;
                 },
               ),
               TextFormField(
                 controller: _ageController,
-                decoration: InputDecoration(labelText: 'Age'),
+                decoration: InputDecoration(labelText: 'Вік'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your age';
+                    return 'Будь ласка введіть вік';
                   }
                   return null;
                 },
               ),
               TextFormField(
                 controller: _additionalInfoController,
-                decoration: InputDecoration(labelText: 'Additional Info'),
+                decoration: InputDecoration(labelText: 'Додаткова інформація'),
               ),
               SizedBox(height: 20),
               avatarSelection(), // Додаємо вибір аватара
@@ -140,7 +140,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: custom_green, // Зелений колір кнопки
                 ),
-                child: Text('Update',
+                child: Text('Зберегти',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,

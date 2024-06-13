@@ -13,7 +13,7 @@ class SchedulePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Schedule"),
+        title: Text("Заняття"),
         backgroundColor: custom_green,
         elevation: 0,
       ),

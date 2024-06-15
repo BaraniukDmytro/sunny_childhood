@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sunny_childhood/repository/auth_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignUpGoogleScreen extends StatefulWidget {
   const SignUpGoogleScreen({Key? key}) : super(key: key);
@@ -14,10 +15,10 @@ class _SignUpGoogleScreenState extends State<SignUpGoogleScreen> {
 
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
-    // Також можна додати вихід з Google Sign-In
-    // if (await GoogleSignIn().isSignedIn()) {
-    //   await GoogleSignIn().signOut();
-    // }
+    final googleSignIn = GoogleSignIn();
+    if (await googleSignIn.isSignedIn()) {
+      await googleSignIn.signOut();
+    }
   }
 
   Future<void> _signUpWithGoogle(BuildContext context) async {
@@ -62,6 +63,3 @@ class _SignUpGoogleScreenState extends State<SignUpGoogleScreen> {
     );
   }
 }
-
-
-

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sunny_childhood/const/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sunny_childhood/repository/auth_data.dart';
+import 'package:sunny_childhood/const/colors.dart';
 
 class LogIN_Screen extends StatefulWidget {
   final VoidCallback showSignUpScreen;
@@ -16,6 +18,7 @@ class _LogIN_ScreenState extends State<LogIN_Screen> {
 
   final email = TextEditingController();
   final password = TextEditingController();
+  bool _isSigningIn = false;
 
   @override
   void initState() {
@@ -37,15 +40,35 @@ class _LogIN_ScreenState extends State<LogIN_Screen> {
     super.dispose();
   }
 
+  Future<void> _signOutGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
+  }
+
   Future<void> _signInWithGoogle() async {
+    setState(() {
+      _isSigningIn = true;
+    });
+
+    await _signOutGoogle();  // Відключити поточний обліковий запис Google
+
     final user = await AuthenticationRemote().signInWithGoogle();
     if (user != null) {
-      // Перенаправляємо користувача на домашню сторінку або виконуємо інші дії
-      Navigator.of(context).pushReplacementNamed('/home');
+      if (mounted) {
+        Navigator.of(context).pushReplacementNamed('/home');
+      }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to sign in with Google')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to sign in with Google')),
+        );
+      }
+    }
+
+    if (mounted) {
+      setState(() {
+        _isSigningIn = false;
+      });
     }
   }
 
@@ -68,7 +91,9 @@ class _LogIN_ScreenState extends State<LogIN_Screen> {
               SizedBox(height: 20),
               loginButton(),
               SizedBox(height: 20),
-              googleSignInButton(),
+              _isSigningIn
+                  ? CircularProgressIndicator()
+                  : googleSignInButton(),
             ],
           ),
         ),
@@ -211,5 +236,7 @@ class _LogIN_ScreenState extends State<LogIN_Screen> {
     );
   }
 }
+
+
 
 

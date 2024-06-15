@@ -57,41 +57,42 @@ class AuthenticationRemote extends AuthenticationDatasource {
   }
 
   Future<User?> signInWithGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    if (googleUser == null) {
+      return null; // Якщо користувач скасував вхід
+    }
+
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    final OAuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
     try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) {
-        return null; // Користувач скасував вхід
-      }
-
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
       final UserCredential userCredential = await _firebaseAuth.signInWithCredential(credential);
       final User? user = userCredential.user;
 
-      // Перевіряємо, чи існує користувач у Firestore
-      final userDoc = await _firestore.collection('users').doc(user!.uid).get();
-      if (!userDoc.exists) {
-        // Створюємо новий документ користувача
-        await _firestore.collection('users').doc(user.uid).set({
-          'email': user.email,
-          'name': user.displayName,
-          'avatarUrl': user.photoURL,
-        });
+      if (user != null) {
+        final userDoc = _firestore.collection('users').doc(user.uid);
+        final userSnapshot = await userDoc.get();
+
+        if (!userSnapshot.exists) {
+          await userDoc.set({
+            'email': user.email,
+            'name': user.displayName,
+            // Додаткові поля можна додати тут
+          });
+        }
       }
 
       return user;
-    } on FirebaseAuthException catch (e) {
-      print('Failed to sign in with Google: $e');
-      return null;
     } catch (e) {
-      print('An error occurred while signing in with Google: $e');
+      print('Error during Google sign-in: $e');
       return null;
     }
   }
+
 }
 
 

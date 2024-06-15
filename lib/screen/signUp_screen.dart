@@ -86,15 +86,15 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
               SizedBox(height: 10),
               textfield(email, _focusNode1, 'Email', Icons.email),
               SizedBox(height: 10),
-              textfield(password, _focusNode2, 'Password', Icons.password),
+              textfield(password, _focusNode2, 'Пароль', Icons.password),
               SizedBox(height: 10),
-              textfield(PasswordConfirm, _focusNode3, 'Password Confirm', Icons.password),
+              textfield(PasswordConfirm, _focusNode3, 'Підтвердіть пароль', Icons.password),
               SizedBox(height: 10),
-              textfield(name, _focusNode4, 'Name', Icons.person),
+              textfield(name, _focusNode4, 'Імя', Icons.person),
               SizedBox(height: 10),
-              textfield(age, _focusNode5, 'Age', Icons.calendar_today),
+              textfield(age, _focusNode5, 'Вік', Icons.calendar_today),
               SizedBox(height: 10),
-              textfield(additionalInfo, _focusNode6, 'Additional Info', Icons.info),
+              textfield(additionalInfo, _focusNode6, 'Додаткова інформація', Icons.info),
               SizedBox(height: 20),
               avatarSelection(),
               //SizedBox(height: 0),
@@ -113,14 +113,14 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            "Already have an account?",
+            "Маєте акаунт?",
             style: TextStyle(color: Colors.grey[700], fontSize: 14),
           ),
           SizedBox(width: 5),
           GestureDetector(
             onTap: widget.show,
             child: Text(
-              'Login',
+              'Вхід',
               style: TextStyle(
                   color: Colors.blue,
                   fontSize: 14,
@@ -151,12 +151,12 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
               );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Please select an avatar')),
+                SnackBar(content: Text('Будь ласка оберіть аватар')),
               );
             }
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Passwords do not match')),
+              SnackBar(content: Text('Паролі не сходяться')),
             );
           }
         },
@@ -169,7 +169,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Text(
-            'Sign Up',
+            'Зареєструватися',
             style: TextStyle(
               color: Colors.white,
               fontSize: 23,
@@ -244,7 +244,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Text(
-            'Select Avatar',
+            'Оберіть аватар',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),

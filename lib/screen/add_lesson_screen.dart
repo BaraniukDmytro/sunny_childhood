@@ -51,7 +51,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
             LessonViewModel().addNote(subtitle.text, title.text, indexx);
             Navigator.pop(context);
           },
-          child: Text('add task'),
+          child: Text('Додати'),
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -61,7 +61,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text('Cancel'),
+          child: Text('Скасувати'),
         ),
       ],
     );
@@ -120,7 +120,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
           decoration: InputDecoration(
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              hintText: 'title',
+              hintText: 'заголовок',
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
@@ -155,7 +155,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
           style: TextStyle(fontSize: 18, color: Colors.black),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            hintText: 'subtitle',
+            hintText: 'підзаголовок',
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(

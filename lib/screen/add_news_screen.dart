@@ -10,7 +10,7 @@ class AddNewsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add News'),
+        title: Text('Додати новину'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -18,11 +18,11 @@ class AddNewsPage extends StatelessWidget {
           children: [
             TextField(
               controller: _titleController,
-              decoration: InputDecoration(labelText: 'Title'),
+              decoration: InputDecoration(labelText: 'Заголовок'),
             ),
             TextField(
               controller: _textController,
-              decoration: InputDecoration(labelText: 'Text'),
+              decoration: InputDecoration(labelText: 'Текст'),
             ),
             SizedBox(height: 20),
             ElevatedButton(
@@ -33,7 +33,7 @@ class AddNewsPage extends StatelessWidget {
                 );
                 Navigator.pop(context);
               },
-              child: Text('Add News'),
+              child: Text('Додати'),
             ),
           ],
         ),

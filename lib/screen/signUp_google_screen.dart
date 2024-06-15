@@ -36,7 +36,7 @@ class _SignUpGoogleScreenState extends State<SignUpGoogleScreen> {
     } else {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to sign in with Google')),
+          SnackBar(content: Text('Помилка входу за допомогою Google')),
         );
       }
     }
@@ -51,13 +51,13 @@ class _SignUpGoogleScreenState extends State<SignUpGoogleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Sign Up with Google')),
+      appBar: AppBar(title: Text('Вхід за допомогою Google')),
       body: Center(
         child: _isSigningIn
             ? CircularProgressIndicator()
             : ElevatedButton(
           onPressed: () => _signUpWithGoogle(context),
-          child: Text('Sign Up with Google'),
+          child: Text('Вхід'),
         ),
       ),
     );

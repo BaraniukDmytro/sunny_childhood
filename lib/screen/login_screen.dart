@@ -60,7 +60,7 @@ class _LogIN_ScreenState extends State<LogIN_Screen> {
     } else {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to sign in with Google')),
+          SnackBar(content: Text('Помилка входу за допомогою Google')),
         );
       }
     }
@@ -85,7 +85,7 @@ class _LogIN_ScreenState extends State<LogIN_Screen> {
               SizedBox(height: 50),
               textfield(email, _focusNode1, 'Email', Icons.email),
               SizedBox(height: 10),
-              textfield(password, _focusNode2, 'Password', Icons.password),
+              textfield(password, _focusNode2, 'Пароль', Icons.password),
               SizedBox(height: 8),
               account(),
               SizedBox(height: 20),
@@ -108,14 +108,14 @@ class _LogIN_ScreenState extends State<LogIN_Screen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            "Don't have an account?",
+            "Не маєш акаунту?",
             style: TextStyle(color: Colors.grey[700], fontSize: 14),
           ),
           SizedBox(width: 5),
           GestureDetector(
             onTap: widget.showSignUpScreen,
             child: Text(
-              'Sign UP',
+              'Реєстрація',
               style: TextStyle(
                   color: Colors.blue,
                   fontSize: 14,
@@ -143,7 +143,7 @@ class _LogIN_ScreenState extends State<LogIN_Screen> {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Text(
-            'LogIn',
+            'Вхід',
             style: TextStyle(
               color: Colors.white,
               fontSize: 23,
@@ -169,7 +169,7 @@ class _LogIN_ScreenState extends State<LogIN_Screen> {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Text(
-            'Sign in with Google',
+            'Вхід за допомогою Google',
             style: TextStyle(
               color: Colors.white,
               fontSize: 23,

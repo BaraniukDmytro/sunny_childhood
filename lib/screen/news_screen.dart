@@ -18,9 +18,9 @@ class NewsScreen extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(child: Text('Помилка: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No news available'));
+            return Center(child: Text('Немає новин'));
           } else {
             final newsList = snapshot.data!;
             return ListView.builder(

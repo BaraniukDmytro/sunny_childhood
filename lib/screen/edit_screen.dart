@@ -61,7 +61,7 @@ class _Edit_ScreenState extends State<Edit_Screen> {
                 widget._lesson.id, indexx, title!.text, subtitle!.text);
             Navigator.pop(context);
           },
-          child: Text('add task'),
+          child: Text('Додати'),
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -71,7 +71,7 @@ class _Edit_ScreenState extends State<Edit_Screen> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text('Cancel'),
+          child: Text('Скасувати'),
         ),
       ],
     );
@@ -130,7 +130,7 @@ class _Edit_ScreenState extends State<Edit_Screen> {
           decoration: InputDecoration(
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              hintText: 'title',
+              hintText: 'заголовок',
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
@@ -165,7 +165,7 @@ class _Edit_ScreenState extends State<Edit_Screen> {
           style: TextStyle(fontSize: 18, color: Colors.black),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            hintText: 'subtitle',
+            hintText: 'підзаголовок',
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(

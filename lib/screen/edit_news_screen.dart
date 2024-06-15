@@ -16,7 +16,7 @@ class EditNewsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit News'),
+        title: Text('Редагувати'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -24,11 +24,11 @@ class EditNewsScreen extends StatelessWidget {
           children: [
             TextField(
               controller: _titleController,
-              decoration: InputDecoration(labelText: 'Title'),
+              decoration: InputDecoration(labelText: 'Заголовок'),
             ),
             TextField(
               controller: _textController,
-              decoration: InputDecoration(labelText: 'Text'),
+              decoration: InputDecoration(labelText: 'Teкст'),
             ),
             SizedBox(height: 20),
             ElevatedButton(
@@ -40,7 +40,7 @@ class EditNewsScreen extends StatelessWidget {
                 );
                 Navigator.pop(context);
               },
-              child: Text('Save Changes'),
+              child: Text('Зберегти'),
             ),
           ],
         ),

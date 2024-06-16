@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class AuthenticationDatasource {
-  Future<void> register(String email, String password, String passwordConfirm, String name, String age, String additionalInfo, String avatarUrl);
+  Future<void> register(String email, String password, String passwordConfirm, String name, String age, String additionalInfo, String avatarUrl, String role);
   Future<void> login(String email, String password);
   Future<User?> signInWithGoogle();  // Додаємо метод для Google
 }
@@ -29,7 +29,7 @@ class AuthenticationRemote extends AuthenticationDatasource {
   }
 
   @override
-  Future<void> register(String email, String password, String passwordConfirm, String name, String age, String additionalInfo, String avatarUrl) async {
+  Future<void> register(String email, String password, String passwordConfirm, String name, String age, String additionalInfo, String avatarUrl, String role) async {
     if (passwordConfirm != password) {
       throw Exception('Passwords do not match');
     }
@@ -44,7 +44,8 @@ class AuthenticationRemote extends AuthenticationDatasource {
           'name': name,
           'age': age,
           'additionalInfo': additionalInfo,
-          'avatarUrl': avatarUrl, // Збереження вибраного аватара
+          'avatarUrl': avatarUrl,
+          'role': role,  // Зберігаємо роль користувача
         });
       });
     } on FirebaseAuthException catch (e) {
@@ -92,8 +93,5 @@ class AuthenticationRemote extends AuthenticationDatasource {
       return null;
     }
   }
-
 }
-
-
 

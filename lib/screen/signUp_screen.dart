@@ -31,6 +31,8 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     'images/avatar2.png',
   ];
 
+  String _selectedRole = 'child';
+
   @override
   void initState() {
     super.initState();
@@ -97,7 +99,8 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
               textfield(additionalInfo, _focusNode6, 'Додаткова інформація', Icons.info),
               SizedBox(height: 20),
               avatarSelection(),
-              //SizedBox(height: 0),
+              SizedBox(height: 10),
+              roleSelection(),
               signUpButton(),
             ],
           ),
@@ -148,6 +151,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                 age.text,
                 additionalInfo.text,
                 selectedAvatar,  // Передаємо вибраний аватар
+                _selectedRole,  // Передаємо вибрану роль
               );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -277,6 +281,45 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
           },
         ),
       ],
+    );
+  }
+
+  Widget roleSelection() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Оберіть роль',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          ListTile(
+            title: const Text('Дитина'),
+            leading: Radio<String>(
+              value: 'child',
+              groupValue: _selectedRole,
+              onChanged: (String? value) {
+                setState(() {
+                  _selectedRole = value!;
+                });
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text('Співробітник'),
+            leading: Radio<String>(
+              value: 'employee',
+              groupValue: _selectedRole,
+              onChanged: (String? value) {
+                setState(() {
+                  _selectedRole = value!;
+                });
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

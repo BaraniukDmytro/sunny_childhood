@@ -12,7 +12,7 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Новини"),
+        title: Text("Головна сторінка"),
         backgroundColor: custom_green,
         elevation: 0,
       ),

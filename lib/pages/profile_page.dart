@@ -80,6 +80,7 @@ class _ProfilePageState extends State<ProfilePage> {
           _buildProfileDetail('Email', _auth.currentUser?.email),
           _buildProfileDetail('Вік', userData?['age']),
           _buildProfileDetail('Додаткова інформація', userData?['additionalInfo']),
+          _buildProfileDetail('Роль', userData?['role']),
           SizedBox(height: 20),
           Center(
             child: ElevatedButton(

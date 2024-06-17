@@ -1,13 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sunny_childhood/ViewModel/newsViewModel.dart';
 import 'package:sunny_childhood/model/news_model.dart';
 import 'package:sunny_childhood/screen/add_news_screen.dart';
+import 'package:sunny_childhood/screen/edit_news_screen.dart';
 
-import 'edit_news_screen.dart'; // Це екран для додавання новин, який ми створимо нижче
+class NewsScreen extends StatefulWidget {
+  const NewsScreen({Key? key}) : super(key: key);
 
+  @override
+  _NewsScreenState createState() => _NewsScreenState();
+}
 
-class NewsScreen extends StatelessWidget {
+class _NewsScreenState extends State<NewsScreen> {
   final NewsViewModel _newsViewModel = NewsViewModel();
+  bool isEmployee = false;
+
+  @override
+  void initState() {
+    super.initState();
+    checkUserRole();
+  }
+
+  Future<void> checkUserRole() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      DocumentSnapshot userDoc =
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+      setState(() {
+        isEmployee = userDoc['role'] == 'employee';
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +55,8 @@ class NewsScreen extends StatelessWidget {
                 return ListTile(
                   title: Text(news.title),
                   subtitle: Text(news.text),
-                  trailing: Row(
+                  trailing: isEmployee
+                      ? Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
@@ -50,21 +76,24 @@ class NewsScreen extends StatelessWidget {
                         },
                       ),
                     ],
-                  ),
+                  )
+                      : null,
                 );
               },
             );
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: isEmployee
+          ? FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => AddNewsPage()),
           );
         },
         child: Icon(Icons.add),
-      ),
+      )
+          : null,
     );
   }
 }
